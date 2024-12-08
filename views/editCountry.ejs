@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Country - <%= country.commonName %></title>
+  <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body tabindex="-1">
+  <%- include('partials/navbar', { page: '' }) %>
+
+  <div class="container mx-auto p-4">
+    <div class="hero bg-base-200 rounded-lg p-6">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold">Edit Country: <%= country.commonName %></h1>
+          <p class="py-6">Use the form below to update the details for "<%= country.commonName %>".</p>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <form action="/editCountry" method="post">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Column 1 -->
+        <div>
+          <div class="mb-6">
+            <label for="commonName" class="block text-gray-700 font-medium">Common Name</label>
+            <input type="text" id="commonName" name="commonName" required value="<%= country.commonName %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+          </div>
+          <div class="mb-6">
+            <label for="id" class="block text-gray-700 font-medium">Numeric-3 Code</label>
+            <input type="text" id="id" name="id" readonly required value="<%= country.id %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300 bg-gray-100 cursor-not-allowed" />
+          </div>
+          <div class="mb-6">
+            <label for="population" class="block text-gray-700 font-medium">Population</label>
+            <input type="number" id="population" name="population" required value="<%= country.population %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+          </div>
+          <div class="mb-6">
+            <label for="subRegionId" class="block text-gray-700 font-medium">SubRegion</label>
+            <select id="subRegionId" name="subRegionId" required
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300">
+              <% subRegions.forEach(subRegion => { %>
+                <option value="<%= subRegion.id %>" <%= country.subRegionId === subRegion.id ? "selected" : "" %>>
+                  <%= subRegion.subRegion %>
+                </option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div>
+          <div class="mb-6">
+            <label for="officialName" class="block text-gray-700 font-medium">Official Name</label>
+            <input type="text" id="officialName" name="officialName" required value="<%= country.officialName %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+          </div>
+          <div class="mb-6">
+            <label for="capital" class="block text-gray-700 font-medium">Capital</label>
+            <input type="text" id="capital" name="capital" required value="<%= country.capital %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+          </div>
+          <div class="mb-6">
+            <label for="area" class="block text-gray-700 font-medium">Area (km²)</label>
+            <input type="number" id="area" name="area" required value="<%= country.area %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+          </div>
+          <div class="mb-6">
+            <label for="landlocked" class="block text-gray-700 font-medium">Is Landlocked?</label>
+            <label class="flex items-center space-x-3">
+              <input type="checkbox" id="landlocked" name="landlocked" class="checkbox"
+                <%= country.landlocked ? "checked" : "" %> />
+              <span class="text-gray-700">Yes</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Column 3 -->
+        <div>
+          <div class="mb-6">
+            <label for="nativeName" class="block text-gray-700 font-medium">Native Name</label>
+            <input type="text" id="nativeName" name="nativeName" required value="<%= country.nativeName %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+          </div>
+          <div class="mb-6">
+            <label for="languages" class="block text-gray-700 font-medium">Languages</label>
+            <input type="text" id="languages" name="languages" required value="<%= country.languages %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+          </div>
+          <div class="mb-6">
+            <label for="currencies" class="block text-gray-700 font-medium">Currencies</label>
+            <input type="text" id="currencies" name="currencies" required value="<%= country.currencies %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+          </div>
+          <div class="mb-6">
+            <label for="openStreetMaps" class="block text-gray-700 font-medium">OpenStreetMap URL</label>
+            <input type="url" id="openStreetMaps" name="openStreetMaps" required value="<%= country.openStreetMaps %>"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Fields -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mb-6">
+          <label for="flag" class="block text-gray-700 font-medium">Flag Image URL</label>
+          <input type="url" id="flag" name="flag" required value="<%= country.flag %>"
+            class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+        </div>
+        <div class="mb-6">
+          <label for="coatOfArms" class="block text-gray-700 font-medium">Coat of Arms URL</label>
+          <input type="url" id="coatOfArms" name="coatOfArms" required value="<%= country.coatOfArms %>"
+            class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-300" />
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mt-6">
+          <button type="submit" class="btn btn-secondary w-full">Update Country</button>
+        </div>
+        <div class="mt-6">
+          <a href="/deleteCountry/<%= country.id %>" class="btn btn-error w-full">Delete Country</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>

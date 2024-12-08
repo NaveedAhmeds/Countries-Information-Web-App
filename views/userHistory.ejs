@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>User History</title>
+		<link rel="stylesheet" href="/css/main.css" />
+	</head>
+	<body>
+		<%- include('partials/navbar') %>
+		<!-- Hero Section -->
+		<div class="hero bg-base-200 p-4">
+			<div class="hero-content text-center">
+				<div class="max-w-md">
+					<h1 class="text-5xl font-bold">User History</h1>
+					<p class="py-2">User: <%= session.user.userName %></p>
+					<p class="py-2">Email: <%= session.user.email %></p>
+				</div>
+			</div>
+		</div>
+
+		<!-- Login History Table -->
+		<div class="overflow-x-auto mt-4 p-4">
+			<table class="table table-zebra w-full">
+				<thead>
+					<tr>
+						<th>Login Date/Time</th>
+						<th>Client Information</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% if (session.user.loginHistory && session.user.loginHistory.length >
+					0) { %> <% session.user.loginHistory.forEach((history) => { %>
+					<tr>
+						<td><%= new Date(history.dateTime).toLocaleString() %></td>
+						<td><%= history.userAgent %></td>
+					</tr>
+					<% }) %> <% } else { %>
+					<tr>
+						<td colspan="2" class="text-center">No login history available.</td>
+					</tr>
+					<% } %>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

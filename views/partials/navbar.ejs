@@ -1,0 +1,138 @@
+<div class="navbar bg-base-100">
+	<div class="flex-1">
+		<a class="btn btn-ghost normal-case text-xl" href="/">Countries</a>
+	</div>
+
+	<!-- Mobile Dropdown -->
+	<div class="dropdown">
+		<label tabindex="0" class="btn btn-ghost sm:hidden">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="w-6 h-6"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M4 6h16M4 12h16m-7 6h7"
+				/>
+			</svg>
+		</label>
+		<ul
+			tabindex="0"
+			class="menu menu-sm dropdown-content right-0 mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+		>
+			<li>
+				<a
+					class="<%= (page === '/countries') ? 'active' : '' %>"
+					href="/countries"
+					>View Countries</a
+				>
+			</li>
+			<li>
+				<a class="<%= (page === '/about') ? 'active' : '' %>" href="/about"
+					>About</a
+				>
+			</li>
+			<li class="dropdown">
+				<label tabindex="0" class="flex items-center cursor-pointer">
+					Account
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-4 w-4 ml-2"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 01.02-1.06z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				</label>
+				<ul
+					class="menu menu-sm dropdown-content right-0 mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+				>
+					<% if (!session.user) { %>
+					<li>
+						<a class="<%= (page === '/login') ? 'active' : '' %>" href="/login"
+							>Login</a
+						>
+					</li>
+					<li>
+						<a
+							class="<%= (page === '/register') ? 'active' : '' %>"
+							href="/register"
+							>Register</a
+						>
+					</li>
+					<% } else { %>
+					<li>
+						<a href="/logout">Logout</a>
+					</li>
+					<% } %>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Desktop Menu -->
+	<div class="navbar-center hidden sm:flex">
+		<ul class="menu menu-horizontal px-1">
+			<li>
+				<a
+					class="<%= (page === '/countries') ? 'active' : '' %>"
+					href="/countries"
+					>View Countries</a
+				>
+			</li>
+			<li>
+				<a class="<%= (page === '/about') ? 'active' : '' %>" href="/about"
+					>About</a
+				>
+			</li>
+			<li class="dropdown">
+				<label tabindex="0" class="flex items-center cursor-pointer">
+					Account
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-4 w-4 ml-2"
+						viewBox="0 0 20 20"
+						fill="currentColor"
+					>
+						<path
+							fill-rule="evenodd"
+							d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 01.02-1.06z"
+							clip-rule="evenodd"
+						/>
+					</svg>
+				</label>
+				<ul
+					class="menu menu-sm dropdown-content right-0 mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+				>
+					<% if (!session.user) { %>
+					<li>
+						<a class="<%= (page === '/login') ? 'active' : '' %>" href="/login"
+							>Login</a
+						>
+					</li>
+					<li>
+						<a
+							class="<%= (page === '/register') ? 'active' : '' %>"
+							href="/register"
+							>Register</a
+						>
+					</li>
+					<% } else { %>
+					<li>
+						<a href="/logout">Logout</a>
+					</li>
+					<% } %>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>

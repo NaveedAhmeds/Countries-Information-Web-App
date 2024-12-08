@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Countries</title>
+		<link rel="stylesheet" href="/css/main.css" />
+	</head>
+
+	<body tabindex="-1">
+		<%- include('partials/navbar', {page: '/countries'}) %>
+
+		<br />
+
+		<div class="container mx-auto p-4">
+			<div class="hero bg-base-200 rounded-lg p-6">
+				<div class="hero-content text-center">
+					<div class="max-w-md">
+						<h1 class="text-5xl font-bold">Countries</h1>
+						<p class="py-6">
+							Browse all UN countries. Click the region | sub-region to filter
+							by [sub-]regions such as:
+							<a
+								href="/countries?region=Africa"
+								class="btn btn-primary mt-2 btn-xs"
+								>Africa</a
+							>
+							<a
+								href="/countries?region=Americas"
+								class="btn btn-primary mt-2 btn-xs"
+								>Americas</a
+							>
+							<a
+								href="/countries?region=Asia"
+								class="btn btn-primary mt-2 btn-xs"
+								>Asia</a
+							>
+							<a
+								href="/countries?region=Europe"
+								class="btn btn-primary mt-2 btn-xs"
+								>Europe</a
+							>
+							<a
+								href="/countries?region=Oceania"
+								class="btn btn-primary mt-2 btn-xs"
+								>Oceania</a
+							>
+							<a
+								href="/countries?subRegion=North America"
+								class="btn btn-primary mt-2 btn-xs"
+								>North America</a
+							>
+							<a
+								href="/countries?subRegion=Eastern Asia"
+								class="btn btn-primary mt-2 btn-xs"
+								>Eastern Asia</a
+							>
+							<a
+								href="/countries?subRegion=Southern Africa"
+								class="btn btn-primary mt-2 btn-xs"
+								>Southern Africa</a
+							>
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<br />
+
+			<div class="overflow-x-auto overflow-y-hidden">
+				<table class="table table-zebra">
+					<thead>
+						<tr>
+							<th>Flag</th>
+							<th>Coat of Arms</th>
+							<th>Name</th>
+							<th>Region | SubRegion</th>
+							<th>Capital</th>
+							<th>Population & Area</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% if (countries.length === 0) { %>
+						<tr>
+							<td colspan="7" class="text-center">
+								<span class="font-bold"
+									>No countries available to display.</span
+								>
+							</td>
+						</tr>
+						<% } else { %> <% countries.forEach(country => { %>
+						<tr>
+							<td>
+								<img
+									src="<%= country.flag %>"
+									alt="Flag of <%= country.commonName %>"
+									class="h-32 rounded-lg m-3"
+								/>
+							</td>
+							<td>
+								<div class="avatar">
+									<div
+										class="h-10 w-10 rounded-lg bg-transparent bg-no-repeat bg-cover"
+										style="background-image: url('<%= country.coatOfArms %>')"
+									></div>
+								</div>
+							</td>
+							<td>
+								<span class="font-bold"><%= country.commonName %></span>
+								<% if (country.commonName !== country.nativeName) { %>
+								<span class="text-sm">( <%= country.nativeName %> )</span>
+								<% } %>
+							</td>
+							<td>
+								<a
+									href="/countries?region=<%= country.SubRegion.region %>"
+									class="btn btn-primary mt-2 btn-xs"
+								>
+									<%= country.SubRegion.region %>
+								</a>
+								|
+								<a
+									href="/countries?subRegion=<%= country.SubRegion.subRegion %>"
+									class="btn btn-primary mt-2 btn-xs"
+								>
+									<%= country.SubRegion.subRegion %>
+								</a>
+							</td>
+							<td>
+								<span class="font-bold">Capital:</span> <%= country.capital %>
+							</td>
+							<td>
+								<span class="font-bold">Population:</span> <%=
+								(country.population * 1).toLocaleString() %><br />
+								<span class="font-bold">Area:</span> <%= (country.area *
+								1).toLocaleString() %> Km<sup>2</sup>
+							</td>
+							<td>
+								<a
+									href="/countries/<%= country.id %>"
+									class="btn btn-primary btn-xs"
+									>Details</a
+								>
+								<% if (session.user) { %>
+								<a
+									href="/editCountry/<%= country.id %>"
+									class="btn btn-secondary btn-xs"
+									>Edit</a
+								>
+								<% } %>
+							</td>
+						</tr>
+						<% }); %> <% } %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
